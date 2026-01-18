@@ -1,6 +1,6 @@
 # MagicTrackPad2_Windows_Precision_Drivers
 Extract from Bootcamp Driver packages for Windows 10/11
-Apple Official Precision Trackpad Drivers for Magic Trackpad 2
+Apple Official Precision Trackpad Drivers for Magic Trackpad 2 (compatible with both USB-C and Lightning port)
 # Connection
 USB/Bluetooth
 # Install
