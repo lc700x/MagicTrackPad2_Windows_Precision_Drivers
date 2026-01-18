@@ -1,0 +1,76 @@
+;
+; ApplePrecisionTrackpadBluetooth.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class = HIDClass
+ClassGuid = {745a17a0-74d3-11d0-b6fe-00a0c90f57da}
+Provider=%ManufacturerName%
+CatalogFile=ApplePrecisionTrackpadBluetooth.cat
+DriverVer = 04/07/2022,6.1.8000.6
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+ApplePrecisionTrackpad_Device_CoInstaller_CopyFiles = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+ApplePrecisionTrackpadBluetooth.sys  = 1,,
+;
+
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64
+
+[Standard.NTamd64]
+%ApplePrecisionTrackpadBluetooth.DeviceDesc%=ApplePrecisionTrackpadBluetooth_Device, BTHENUM\{00001124-0000-1000-8000-00805f9b34fb}_VID&0001004c_PID&0265
+
+[ApplePrecisionTrackpadBluetooth_Device.NT]
+Include=hidbth.inf
+Needs=HIDBTH_Inst.NT
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+ApplePrecisionTrackpadBluetooth.sys
+
+[ApplePrecisionTrackpadBluetooth_Device.NT.HW]
+AddReg=ApplePrecisionTrackpadBluetooth_AddReg
+
+[ApplePrecisionTrackpadBluetooth_AddReg]
+HKR,,"LowerFilters",0x00010000,"ApplePrecisionTrackpadBluetooth"
+HKR,,"DeviceResetNotificationEnabled",0x00010001,0
+HKR,,"EnhancedPowerManagementEnabled",0x00010001,0
+
+;-------------- Service installation
+[ApplePrecisionTrackpadBluetooth_Device.NT.Services]
+Include = hidbth.inf
+Needs	= HIDBTH_Inst.NT.Services
+AddService = ApplePrecisionTrackpadBluetooth, , ApplePrecisionTrackpadBluetooth_Service_Inst
+
+; -------------- ApplePrecisionTrackpad driver install sections
+[ApplePrecisionTrackpadBluetooth_Service_Inst]
+DisplayName    = %ApplePrecisionTrackpadBluetooth.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\ApplePrecisionTrackpadBluetooth.sys
+
+[ApplePrecisionTrackpadBluetooth_Device.NT.Wdf]
+KmdfService =  ApplePrecisionTrackpadBluetooth, ApplePrecisionTrackpadBluetooth_wdfsect
+[ApplePrecisionTrackpadBluetooth_wdfsect]
+KmdfLibraryVersion = 1.15
+
+[Strings]
+ManufacturerName="Apple"
+DiskName = "ApplePrecisionTrackpadBluetooth Installation Disk"
+ApplePrecisionTrackpadBluetooth.DeviceDesc = "Apple Bluetooth Precision Trackpad"
+ApplePrecisionTrackpadBluetooth.SVCDESC = "Apple Bluetooth Precision Trackpad Service"
+

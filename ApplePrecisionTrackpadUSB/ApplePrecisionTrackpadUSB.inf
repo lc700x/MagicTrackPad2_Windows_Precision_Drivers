@@ -1,0 +1,90 @@
+;
+; ApplePrecisionTrackpadUSB.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class = HIDClass
+ClassGuid = {745a17a0-74d3-11d0-b6fe-00a0c90f57da}
+Provider=%ManufacturerName%
+CatalogFile=ApplePrecisionTrackpadUSB.cat
+DriverVer = 04/07/2022,6.1.8000.6
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+ApplePrecisionTrackpadUSB_Device_CoInstaller_CopyFiles = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+ApplePrecisionTrackpadUSB.sys  = 1,,
+;
+
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64
+
+[Standard.NTamd64]
+%ApplePrecisionTrackpadUSB.DeviceDesc%=ApplePrecisionTrackpadUSB_Device, USB\VID_05AC&PID_0277&MI_02
+%ApplePrecisionTrackpadUSB.DeviceDesc%=ApplePrecisionTrackpadUSB_Device, USB\VID_05AC&PID_027A&MI_02
+%ApplePrecisionTrackpadUSB.DeviceDesc%=ApplePrecisionTrackpadUSB_Device, USB\VID_05AC&PID_027B&MI_02
+%ApplePrecisionTrackpadUSB.DeviceDesc%=ApplePrecisionTrackpadUSB_Device, USB\VID_05AC&PID_027C&MI_02
+%ApplePrecisionTrackpadUSB.DeviceDesc%=ApplePrecisionTrackpadUSB_Device, USB\VID_05AC&PID_027D&MI_02
+%ApplePrecisionTrackpadUSB.DeviceDesc%=ApplePrecisionTrackpadUSB_Device, USB\VID_05AC&PID_027E&MI_02
+%ApplePrecisionTrackpadUSB.DeviceDesc%=ApplePrecisionTrackpadUSB_Device, USB\VID_05AC&PID_027F&MI_02
+%ApplePrecisionTrackpadUSB.DeviceDesc%=ApplePrecisionTrackpadUSB_Device, USB\VID_05AC&PID_0280&MI_02
+%ApplePrecisionTrackpadUSB.DeviceDesc%=ApplePrecisionTrackpadUSB_Device, USB\VID_05AC&PID_0340&MI_02
+
+%ApplePrecisionTrackpadUSB.DeviceDesc%=ApplePrecisionTrackpadUSB_Device, USB\VID_05AC&PID_0265&MI_01
+
+[ApplePrecisionTrackpadUSB_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+ApplePrecisionTrackpadUSB.sys
+
+[ApplePrecisionTrackpadUSB_Device.NT.HW]
+AddReg=ApplePrecisionTrackpadUSB_AddReg
+
+[ApplePrecisionTrackpadUSB_AddReg]
+HKR,,"LowerFilters",0x00010000,"ApplePrecisionTrackpadUSB"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\PrecisionTouchPad","SuperCurtainTop",0x00010001,700
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\PrecisionTouchPad","SuperCurtainLeft",0x00010001,150
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\PrecisionTouchPad","SuperCurtainRight",0x00010001,150
+
+;-------------- Service installation
+[ApplePrecisionTrackpadUSB_Device.NT.Services]
+AddService = ApplePrecisionTrackpadUSB, , ApplePrecisionTrackpadUSB_Service_Inst
+AddService = mshidkmdf, 0x00000002, mshidkmdf_Service_Inst
+
+; -------------- ApplePrecisionTrackpadUSB driver install sections
+[ApplePrecisionTrackpadUSB_Service_Inst]
+DisplayName    = %ApplePrecisionTrackpadUSB.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\ApplePrecisionTrackpadUSB.sys
+
+[mshidkmdf_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\mshidkmdf.sys
+
+[ApplePrecisionTrackpadUSB_Device.NT.Wdf]
+KmdfService =  ApplePrecisionTrackpadUSB, ApplePrecisionTrackpadUSB_wdfsect
+[ApplePrecisionTrackpadUSB_wdfsect]
+KmdfLibraryVersion = 1.15
+
+[Strings]
+ManufacturerName="Apple"
+DiskName = "ApplePrecisionTrackpadUSB Installation Disk"
+ApplePrecisionTrackpadUSB.DeviceDesc = "Apple USB Precision Trackpad"
+ApplePrecisionTrackpadUSB.SVCDESC = "Apple USB Precision Trackpad Service"
+
