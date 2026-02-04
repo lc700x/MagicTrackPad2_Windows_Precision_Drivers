@@ -4,7 +4,7 @@ Extracted from Bootcamp Driver packages.
 # Connection
 USB/Bluetooth
 
-## Installation Steps
+# Installation Steps
 1. Connect the Magic Trackpad with Bluetooth (NOT WITH CABLE).  
 2. Go to `Device Manager`  
 3. Open the `Human Interfaces Devices` section -> find the listing for `Bluetooth HID Device` -> right click and select `Properties` -> `Details` tab -> select `Hardware Ids` property -> ensure the value starts with `BTHENUM\{00001124` as there may be multiple entries with the same name of Bluetooth HID Device  
