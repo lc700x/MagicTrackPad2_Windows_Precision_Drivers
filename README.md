@@ -13,4 +13,5 @@ USB/Bluetooth
 6. Now your Trackpad should work with Precision menu option in Windows Settings.
 
 ## Important!
-The driver has a bug of reconnection failure on latest Windows 10/11 if you remove the Magic Trackpad in Bluetooth Settings, you'd better follow the steps in this [issue](https://github.com/lc700x/MagicTrackPad2_Windows_Precision_Drivers/issues/1)
+- The driver has a bug of reconnection failure on latest Windows 10/11 if you remove the Magic Trackpad in Bluetooth Settings, you'd better follow the steps in this [issue](https://github.com/lc700x/MagicTrackPad2_Windows_Precision_Drivers/issues/1)
+- Recommend to use the [Driver from RELEASE](https://github.com/lc700x/MagicTrackPad2_Windows_Precision_Drivers/releases/latest/download/MagicTrackpad2_Precision_Drivers.zip)  as the safer source for installation (For some systems, the files from a normal git checkout may not be directly installable due to catalog/hash validation)
