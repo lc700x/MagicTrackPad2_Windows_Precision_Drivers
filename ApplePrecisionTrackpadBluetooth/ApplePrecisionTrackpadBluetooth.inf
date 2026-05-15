@@ -32,6 +32,7 @@ ApplePrecisionTrackpadBluetooth.sys  = 1,,
 
 [Standard.NTamd64]
 %ApplePrecisionTrackpadBluetooth.DeviceDesc%=ApplePrecisionTrackpadBluetooth_Device, BTHENUM\{00001124-0000-1000-8000-00805f9b34fb}_VID&0001004c_PID&0265
+%ApplePrecisionTrackpadBluetooth.DeviceDesc%=ApplePrecisionTrackpadBluetooth_Device, BTHENUM\{00001124-0000-1000-8000-00805f9b34fb}_VID&0001004c_PID&0324
 
 [ApplePrecisionTrackpadBluetooth_Device.NT]
 Include=hidbth.inf
